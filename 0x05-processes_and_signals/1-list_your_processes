@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# display the list of currently running processes for all users.
+# In The user-oriented format according to their process hierarchy.
+ps -faux

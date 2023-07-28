@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# display lines of process info containing the word 'bash'.
+# Shellcheck disable=SC2009.
+ps u | grep bash
