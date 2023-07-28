@@ -1,29 +1,48 @@
 #!/usr/bin/env bash
-# manage the Daemon.
-# Shellcheck source=/lib/lsb/init-functions.
-PIDFILE=/var/run/my_process.pid
+# Drocess manager
 
-start() {
+FILE="/var/run/my_process.pid"
+
+function error()
+{
+    echo "Usage: manage_my_process {start|stop|restart}"
+}
+
+function start()
+{
+    (./manage_my_process) &
+    echo $$ > $FILE
+    echo "manage_py_process started"
+}
+
+function stop()
+{
+    pkill -f ./manage_my_process
+    sudo rm $FILE
+    echo "manage_my_process stopped"
+}
+
+function restart()
+{
+    pkill -f ./manage_my_process
+    rm $FILE
     ./manage_my_process &
-    echo "$!" > "$PIDFILE"
+    echo $$ > $FILE
+    echo "manage_my_process restarted"
 }
 
-stop() {
-    sudo kill -15 "$(cat "$PIDFILE")" && rm -f "$PIDFILE"
-}
-
-case "$1" in
-    start)
-	    start
-	    echo "manage_my_process started";;
-    stop)
-	    stop
-	    echo "manage_my_process stopped";;
-    restart)
-	    stop
-	    start
-	    echo "manage_my_process restarted";;
-    *) echo "Usage: manage_my_process {start|stop|restart}"
-esac
-
-exit 0
+if [ $# -ne 1 ];
+then
+    error
+else
+    case ${1} in
+    	"start")
+    	    start;;
+    	"restart")
+    	    restart;;
+    	"stop")
+    	    stop;;
+    	*)
+    	    error;;
+    esac
+fi
