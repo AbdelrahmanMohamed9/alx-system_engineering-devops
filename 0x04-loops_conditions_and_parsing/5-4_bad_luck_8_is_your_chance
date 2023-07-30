@@ -15,6 +15,6 @@ do
     echo "good luck"
   else
     echo "Best School"
-  fn
+  fi
   (( n++ ))
 done

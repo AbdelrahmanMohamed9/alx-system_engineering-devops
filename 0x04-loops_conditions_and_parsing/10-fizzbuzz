@@ -18,5 +18,5 @@ do
 	echo "Fizz"
     else
 	echo "$n"
-    fn
+    fi
 done
