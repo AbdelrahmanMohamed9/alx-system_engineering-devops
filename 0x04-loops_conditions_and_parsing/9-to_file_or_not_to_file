@@ -19,4 +19,4 @@ then
     fi
 else
     echo "$file file does not exist"
-fn
+fi
